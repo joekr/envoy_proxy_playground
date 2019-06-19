@@ -1,5 +1,9 @@
 # Envoy Proxy playground
 
+Learning using this as the sandbox: https://github.com/envoyproxy/envoy/tree/master/examples/front-proxy
+
+Run: `docker-compose up -d`
+
 Url endpoints:
 
 * `http://localhost:8001/`
