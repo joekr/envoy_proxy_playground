@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"os"
 )
 
 type serviceHandler struct {
@@ -12,8 +13,8 @@ type serviceHandler struct {
 
 func (h *serviceHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	id := strings.TrimPrefix(r.URL.Path, "/service/")
-
-	fmt.Fprintf(w, " Hello from behind Envoy %d\n", id)
+	hostname, _ := os.Hostname()
+	fmt.Fprintf(w, " Hello from behind Envoy service%s Host: %s\n", id, hostname)
 }
 
 func main() {
