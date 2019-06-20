@@ -14,8 +14,10 @@ type serviceHandler struct {
 func (h *serviceHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	id := strings.TrimPrefix(r.URL.Path, "/service/")
 	requestID := r.Header.Get("x-request-id")
+	canary := r.Header.Get("x-canary-version")
 	hostname, _ := os.Hostname()
-	log.Println("x-request-id ", requestID)
+	log.Println("x-request-id ", requestID, r.URL.Path)
+	log.Println("x-canary-version ", canary)
 	fmt.Fprintf(w, " Hello from behind Envoy service%s Host: %s\n", id, hostname)
 }
 
