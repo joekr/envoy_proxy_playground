@@ -1,0 +1,27 @@
+# Start from a Debian image with the latest version of Go installed
+# and a workspace (GOPATH) configured at /go.
+FROM golang:1.12 as builder
+
+# Copy the local package files to the container's workspace.
+ADD ./service1a /go/src/github.com/joekr/envoy_proxy/service
+
+WORKDIR /go/src/github.com/joekr/envoy_proxy/service
+
+ENV GO111MODULE=on
+
+RUN mkdir /backend_service
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /backend_service/main .
+
+FROM envoyproxy/envoy-alpine-dev:latest
+RUN apk --no-cache add ca-certificates
+
+WORKDIR /root/
+
+# Document that the service listens on port 8080.
+EXPOSE 8080
+
+COPY --from=builder /backend_service/main .
+
+ADD ./start_service.sh .
+RUN chmod u+x ./start_service.sh
+ENTRYPOINT ./start_service.sh

@@ -33,7 +33,7 @@ services:
   service1a:
     build:
       context: .
-      dockerfile: Dockerfile-service
+      dockerfile: Dockerfile-service1a
     volumes:
       - ./service-envoy.yaml:/etc/service-envoy.yaml
     networks:
