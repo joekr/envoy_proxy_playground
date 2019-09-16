@@ -23,5 +23,6 @@ EXPOSE 8080
 COPY --from=builder /backend_service/main .
 
 ADD ./start_service.sh .
+ADD ./service-envoy.yaml /etc/service-envoy.yaml
 RUN chmod u+x ./start_service.sh
 ENTRYPOINT ./start_service.sh

@@ -13,11 +13,13 @@ Url endpoints:
 
 ## Build container
 
+`docker build -f Dockerfile-frontend -t registry.gitlab.com/joekr/envoy_proxy_playground:edge .`
 `docker build -f Dockerfile-service -t registry.gitlab.com/joekr/envoy_proxy_playground:service1 .`
 `docker build -f Dockerfile-service2a -t registry.gitlab.com/joekr/envoy_proxy_playground:service2a .`
 `docker build -f Dockerfile-service2b -t registry.gitlab.com/joekr/envoy_proxy_playground:service2b .`
 
 `docker login registry.gitlab.com`
+`docker push registry.gitlab.com/joekr/envoy_proxy_playground:edge`
 `docker push registry.gitlab.com/joekr/envoy_proxy_playground:service1`
 `docker push registry.gitlab.com/joekr/envoy_proxy_playground:service2a`
 `docker push registry.gitlab.com/joekr/envoy_proxy_playground:service2b`
