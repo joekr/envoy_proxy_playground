@@ -3,7 +3,7 @@
 FROM golang:1.12 as builder
 
 # Copy the local package files to the container's workspace.
-ADD ./service1a /go/src/github.com/joekr/envoy_proxy/service
+ADD ./service2a /go/src/github.com/joekr/envoy_proxy/service
 
 WORKDIR /go/src/github.com/joekr/envoy_proxy/service
 

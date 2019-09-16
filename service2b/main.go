@@ -18,8 +18,10 @@ func (h *serviceHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	hostname, _ := os.Hostname()
 	log.Println("x-request-id ", requestID, r.URL.Path)
 	log.Println("x-canary-version ", canary)
-	log.Println("id ", id)
-	fmt.Fprintf(w, "Hello from behind Envoy service1 Host: %s\n", hostname)
+	log.Println("service id ", id)
+
+	w.WriteHeader(500)
+	fmt.Fprintf(w, "Hello from behind Envoy service2b Host: %s\n", hostname)
 }
 
 func main() {

@@ -23,25 +23,22 @@ static_resources:
               - "*"
               routes:
               - match:
-                  prefix: "/service/1"
+                  prefix: "/service/"
                   headers:
                   - name: "x-canary-version"
-                    exact_match: "service1a"
+                    exact_match: "canaryTest"
                 route:
-                  cluster: service1a
+                  cluster: service2b
               - match:
-                  prefix: "/service/1"
+                  prefix: "/service/"
                 route:
-                  weighted_clusters:
-                    clusters:
-                    - name: service1a
-                      weight: 25
-                    - name: service1
-                      weight: 75
-              - match:
-                  prefix: "/service/2"
-                route:
-                  cluster: service2
+                    cluster: service1
+                  # weighted_clusters:
+                  #   clusters:
+                  #   - name: service2b
+                  #     weight: 25
+                  #   - name: service1
+                  #     weight: 75
           http_filters:
           - name: envoy.router
             typed_config: {}
@@ -60,28 +57,33 @@ static_resources:
               socket_address:
                 address: service1
                 port_value: 80
-  - name: service1a
-    connect_timeout: 0.25s
-    type: strict_dns
-    lb_policy: round_robin
-    http2_protocol_options: {}
-    hosts:
-    - socket_address:
-        address: service1a
-        port_value: 80
-  - name: service2
+  - name: service2a
     connect_timeout: 0.25s
     type: strict_dns
     lb_policy: round_robin
     http2_protocol_options: {}
     load_assignment:
-      cluster_name: service2
+      cluster_name: service2a
       endpoints:
       - lb_endpoints:
         - endpoint:
             address:
               socket_address:
-                address: service2
+                address: service2a
+                port_value: 80
+  - name: service2b
+    connect_timeout: 0.25s
+    type: strict_dns
+    lb_policy: round_robin
+    http2_protocol_options: {}
+    load_assignment:
+      cluster_name: service2b
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: service2b
                 port_value: 80
   - name: jaeger
     connect_timeout: 1s

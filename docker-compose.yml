@@ -30,18 +30,33 @@ services:
     expose:
       - "80"
 
-  service1a:
+  service2a:
     build:
       context: .
-      dockerfile: Dockerfile-service1a
+      dockerfile: Dockerfile-service2a
     volumes:
       - ./service-envoy.yaml:/etc/service-envoy.yaml
     networks:
       envoymesh:
         aliases:
-          - service1a
+          - service2a
     environment:
-      - SERVICE_NAME=1a
+      - SERVICE_NAME=2a
+    expose:
+      - "80"
+
+  service2b:
+    build:
+      context: .
+      dockerfile: Dockerfile-service2b
+    volumes:
+      - ./service-envoy.yaml:/etc/service-envoy.yaml
+    networks:
+      envoymesh:
+        aliases:
+          - service2b
+    environment:
+      - SERVICE_NAME=2b
     expose:
       - "80"
 

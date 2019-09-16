@@ -21,7 +21,7 @@ func (h *serviceHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	log.Println("service id ", id)
 
 	w.WriteHeader(500)
-	fmt.Fprintf(w, "ERROR from behind Envoy service1a Host: %s\n", hostname)
+	fmt.Fprintf(w, "ERROR from behind Envoy service2a Host: %s\n", hostname)
 }
 
 func main() {
